@@ -8,6 +8,7 @@ type PriceListUpdate = Database['public']['Tables']['price_list']['Update'];
 
 // Get global offer settings
 export const getOfferSettings = async (): Promise<Record<string, number>> => {
+  debugger
   try {
     const { data, error } = await supabase
       .from('offer_settings')

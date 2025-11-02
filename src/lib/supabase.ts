@@ -277,6 +277,7 @@ export interface Database {
           icon: string | null
           category_id: number | null
           subcategory_id: number | null
+          device_image: string | null
           is_active: boolean | null
           created_at: string | null
           updated_at: string | null
@@ -316,6 +317,34 @@ export interface Database {
           updated_at?: string | null
         }
       }
+      device_variants: {
+        Row: {
+          id: number
+          device_id: number
+          key: string // e.g. "iPhone 14 Pro - 256GB"
+          label: string
+          ram: string
+          storage: string
+          color: string
+          sku: string
+          gtin: string
+          mpn: string
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+      },
+      device_characteristics: {
+        Row: {
+          id: number
+          device_id: number
+          name: string // e.g. "iPhone 14 Pro - 256GB"
+          value: string
+          unit: string
+          created_at: string
+        }
+      }
+
     }
     Views: {
       [key: string]: {
