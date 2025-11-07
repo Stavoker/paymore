@@ -10,23 +10,10 @@ export interface Database {
       price_list: {
         Row: {
           id: number;
-          device_key: string;
+          device_id: number;
           device_name: string;
-          brand: string;
-          model: string;
-          storage: string;
-          gtin: string | null;
-          mpn: string | null;
-          sale_price: number;
-          buy_min: number | null;
-          resale_floor: number | null;
-          category_id: number | null;
-          subcategory_id: number | null;
-          icon: string | null;
-          device_image: string | null;
-          is_active: boolean | null;
-          created_at: string | null;
-          updated_at: string | null;
+          min_price: number;
+          max_price: number;
         };
         Insert: {
           id?: number;
@@ -67,6 +54,14 @@ export interface Database {
           is_active?: boolean | null;
           created_at?: string | null;
           updated_at?: string | null;
+        };
+      };
+      price_list_answers:{
+        Row: {
+          id: number;
+          price_list_id: number;
+          question_id: number;
+          answer_value: string;
         };
       };
       offer_settings: {
@@ -277,6 +272,7 @@ export interface Database {
           icon: string | null;
           category_id: number | null;
           subcategory_id: number | null;
+          device_image: string | null;
           is_active: boolean | null;
           created_at: string | null;
           updated_at: string | null;
@@ -315,6 +311,50 @@ export interface Database {
           created_at?: string | null;
           updated_at?: string | null;
         };
+      };
+      device_variants: {
+        Row: {
+          id: number
+          device_id: number
+          key: string // e.g. "iPhone 14 Pro - 256GB"
+          label: string
+          ram: string
+          storage: string
+          color: string
+          sku: string
+          gtin: string
+          mpn: string
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+      },
+      device_characteristics: {
+        Row: {
+          id: number
+          device_id: number
+          name: string // e.g. "iPhone 14 Pro - 256GB"
+          value: string
+          unit: string
+          created_at: string
+        }
+      },
+      categorial_questions: {
+        Row: {
+          id: number
+          question: string
+          question_type: string
+          description: string
+          question_answers: Array<{ value: string }>
+        }
+      },
+      question_answers: {
+        Row: {
+          id: number
+          question_id: number
+          value: string
+          is_active: boolean
+        }
       };
     };
     Views: {

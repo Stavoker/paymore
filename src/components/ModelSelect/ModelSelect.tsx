@@ -9,7 +9,8 @@ import ArrowSvg from '../../img/arrow-nex-back.svg';
 import Button from '../Button';
 import css from './ModelSelect.module.css';
 
-const ModelSelect: React.FC<ModelSelectProps> = ({
+const ModelSelect: React.FC<ModelSelectProps> = props => {
+  const {
   catSpec,
   subcatKeys,
   subcategory,
@@ -22,15 +23,14 @@ const ModelSelect: React.FC<ModelSelectProps> = ({
   brand,
   model,
   categoryLabel,
-}) => {
+} = props;
   const [currentPage, setCurrentPage] = useState(0);
   const navigate = useNavigate();
-
   const ITEMS_PER_PAGE = 4;
-  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(props?.items?.length / ITEMS_PER_PAGE);
   const startIndex = currentPage * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentItems = items.slice(startIndex, endIndex);
+  const currentItems = props?.items?.slice(startIndex, endIndex);
 
   const handlePrevious = () => {
     if (currentPage > 0) {
@@ -46,7 +46,7 @@ const ModelSelect: React.FC<ModelSelectProps> = ({
 
   useEffect(() => {
     setCurrentPage(0);
-  }, [items.length]);
+  }, [props?.items?.length]);
 
   return (
     <div className={css.wrapperModelSelect}>
@@ -55,8 +55,8 @@ const ModelSelect: React.FC<ModelSelectProps> = ({
           className={css.inputSearch}
           type='text'
           name='search'
-          value={q}
-          onChange={e => setQ(e.target.value)}
+          value={props?.q}
+          onChange={e => props?.setQ(e.target.value)}
           placeholder='Search for a model'
         />
         <div className={css.wrapperBtnIcon}>
@@ -100,11 +100,11 @@ const ModelSelect: React.FC<ModelSelectProps> = ({
 
               const deviceSlug = cleanKey.toLowerCase().replace(/_/g, '-');
 
-              navigate(`/category/${brand}/${model}/${deviceSlug}`, {
+              navigate(`/category/${props?.brand}/${props?.model}/${deviceSlug}`, {
                 state: {
                   device: item,
-                  categoryKey: category,
-                  path: `/category/${brand}/${model}/${deviceSlug}`,
+                  categoryKey: props?.category,
+                  path: `/category/${props?.brand}/${props?.model}/${deviceSlug}`,
                 },
               });
             }}

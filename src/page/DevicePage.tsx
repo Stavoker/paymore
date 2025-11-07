@@ -1,7 +1,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { RotatingLines } from 'react-loader-spinner';
-import { useCategories } from '../hooks/useCategories';
+import { useNewCategories } from '../hooks/useNewCategories';
+import { useDevices as useDevicesForCategory } from '../hooks/useNewDevices';
 import ModelSelect from '../components/ModelSelect';
 import DeviceDetail from '../components/DeviceDetail';
 import StepContainer from '../components/StepContainer/StepContainer';
@@ -13,10 +14,18 @@ const DevicePage: React.FC = () => {
   const [step, setStep] = useState<number>(1);
   const { brand, model, deviceName } = useParams<{ brand: string; model: string; deviceName?: string }>();
   const location = useLocation();
-  const { categories, subcategories, devices, loading, error } = useCategories();
+  // const { categories, devices, loading, error } = useCategories();
+  const { categories, loading: categoriesLoading, error: categoriesError } = useNewCategories();
 
   const categoryKey = (location.state as any)?.categoryKey || (brand && model ? `${brand}_${model}`.toLowerCase() : '');
-  const [subcategory, setSubcategory] = useState<string>('');
+  // selectedCategory (used to fetch devices)
+  const selectedCategory = useMemo(() => categories.find((c: any) => c.key === categoryKey) || null, [categories, categoryKey]);
+  // pass undefined instead of null so the hook can decide whether to fetch
+  const { devices, loading: devicesLoading, error: devicesError } = useDevicesForCategory(selectedCategory?.id ?? undefined);
+  const loading = !!(categoriesLoading || devicesLoading);
+  const error = (categoriesError || devicesError) as any;
+
+  // const categoryKey = (location.state as any)?.categoryKey || (brand && model ? `${brand}_${model}`.toLowerCase() : '');
   const [q, setQ] = useState<string>('');
 
   useEffect(() => {
@@ -43,38 +52,31 @@ const DevicePage: React.FC = () => {
 
   const catSpec: any = useMemo(() => {
     if (!categories.length) return {};
-
-    const cat = categories.find(c => c.key === categoryKey);
+    const cat = categories.find((c: any) => c.key === categoryKey);
     if (!cat) return {};
-
-    const subcats = subcategories.filter((sub: any) => sub.category_id === cat.id);
+    // Use devices list filtered by category
+    // const dev = devices;
+    // debugger;
+    const items = (devices || []).filter((d: any) => {
+      return d.category_id === cat.id || d.category_key === cat.key || d.category === cat.key;
+    });
 
     return {
       label: cat.label,
-      subcategories: subcats.reduce((acc: any, sub: any) => {
-        acc[sub.key] = {
-          label: sub.label,
-          items: devices.filter((d: any) => d.subcategory_id === sub.id),
-        };
-        return acc;
-      }, {}),
-      items: devices.filter((d: any) => d.category_id === cat.id && !d.subcategory_id),
+      items,
     };
-  }, [categories, subcategories, devices, categoryKey]);
+  }, [categories, devices, categoryKey]);
 
-  const subcatKeys = useMemo(() => Object.keys(catSpec.subcategories || {}), [catSpec]);
+  // const subcatKeys = useMemo(() => Object.keys(catSpec.subcategories || {}), [catSpec]);
 
-  useEffect(() => {
-    const newSubcategory = subcatKeys.length ? subcatKeys[0] : '';
-    setSubcategory(newSubcategory);
-  }, [subcatKeys, deviceName]); // Добавили deviceName чтобы сбрасывать при возврате
+  // useEffect(() => {
+  //   const newSubcategory = subcatKeys.length ? subcatKeys[0] : '';
+  //   setSubcategory(newSubcategory);
+  // }, [subcatKeys, deviceName]); // Добавили deviceName чтобы сбрасывать при возврате
 
   const deviceList = useMemo(() => {
-    if (catSpec.subcategories && subcategory && catSpec.subcategories[subcategory]) {
-      return catSpec.subcategories[subcategory].items || [];
-    }
     return catSpec.items || [];
-  }, [catSpec, subcategory]);
+  }, [catSpec]);
 
   const deviceVariants: any[] = useMemo(() => {
     if (!deviceName || !deviceList.length) return [];
@@ -97,35 +99,21 @@ const DevicePage: React.FC = () => {
     return deviceList.filter((d: any) => [d.label, d.brand, d.model].filter(Boolean).join(' ').toLowerCase().includes(query));
   }, [deviceList, q]);
 
-  const uniqueDevices = useMemo(() => {
-    const deviceMap = new Map<string, any>();
+  // const uniqueDevices = useMemo(() => {
+  //   const deviceMap = new Map<string, any>();
 
-    filteredDevices.forEach((d: any) => {
-      const modelKey = `${d.brand}_${d.model}`.replace(/\s*\d+\s*(GB|TB|MB)/gi, '').toUpperCase();
+  //   filteredDevices.forEach((d: any) => {
+  //     const modelKey = `${d.brand}_${d.model}`.replace(/\s*\d+\s*(GB|TB|MB)/gi, '').toUpperCase();
 
-      if (!deviceMap.has(modelKey)) {
-        deviceMap.set(modelKey, d);
-      }
-    });
+  //     if (!deviceMap.has(modelKey)) {
+  //       deviceMap.set(modelKey, d);
+  //     }
+  //   });
 
-    return Array.from(deviceMap.values());
-  }, [filteredDevices]);
+  //   return Array.from(deviceMap.values());
+  // }, [filteredDevices]);
 
-  const { items, lowMatches } = useMemo(() => {
-    const items: any[] = [];
-    const lowMatches: any[] = [];
-
-    uniqueDevices.forEach((d: any) => {
-      const meetsThreshold = Number(d.buy_min || 0) >= MIN_PURCHASE && Number(d.resale_floor || 0) >= MIN_RESALE;
-      if (meetsThreshold) {
-        items.push(d);
-      } else {
-        lowMatches.push(d);
-      }
-    });
-
-    return { items, lowMatches };
-  }, [uniqueDevices]);
+  const items = useMemo(() => devices, [devices]);
 
   return (
     <>
@@ -142,7 +130,7 @@ const DevicePage: React.FC = () => {
           wrapperClass='spinner-wrapper'
         />
       )}
-      {error && <div style={{ padding: '20px', color: 'red' }}>Error: {error}</div>}
+      {error && <div style={{ padding: '20px', color: 'red' }}>Error: {String(error)}</div>}
       {!loading && !error && (
         <StepContainer step={step}>
           {!loading && !error && catSpec.label && selectedDevice && (
@@ -158,13 +146,9 @@ const DevicePage: React.FC = () => {
           {!loading && !error && catSpec.label && !selectedDevice && step === 1 && (
             <ModelSelect
               catSpec={catSpec}
-              subcatKeys={subcatKeys}
-              subcategory={subcategory}
-              setSubcategory={setSubcategory}
               q={q}
               setQ={setQ}
               items={items}
-              lowMatches={lowMatches}
               category={categoryKey}
               brand={brand || ''}
               model={model || ''}
