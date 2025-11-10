@@ -4,6 +4,10 @@ export interface Category {
   label: string;
   icon?: string;
   parent_id?: number | null;
+  shipping_cost: number;
+  paymore_margin: number;
+  merchant_margin: number;
+  total_margin: number;
   sort_order: number;
   is_active: boolean;
   created_at: string;
@@ -35,6 +39,16 @@ export interface Device {
   device_image?: string;
   category_id?: number;
   subcategory_id?: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DeviceVariant {
+  id: number;
+  device_id: number;
+  price: number;
+  storage: string;
   is_active: boolean;
   created_at: string;
   updated_at: string;

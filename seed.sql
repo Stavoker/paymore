@@ -29,12 +29,7 @@ CREATE TABLE public.device_variants (
   device_id bigint NOT NULL,
   key text NOT NULL UNIQUE,
   label text NOT NULL,
-  ram text,
   storage text,
-  color text,
-  sku text,
-  gtin text,
-  mpn text,
   is_active boolean DEFAULT true,
   created_at timestamp with time zone DEFAULT now(),
   updated_at timestamp with time zone DEFAULT now(),
@@ -96,19 +91,18 @@ CREATE TABLE public.subcategories (
   updated_at timestamp with time zone DEFAULT now(),
   CONSTRAINT subcategories_pkey PRIMARY KEY (id),
   CONSTRAINT subcategories_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.categories(id)
-);
-
--- Categories
+);/
 insert into public.categories (key, label, sort_order)
 values
-('phones', 'Phones', 1),
+('phones', ' nb b bn bn b bb b b bones', 1),
 ('laptops', 'Laptops', 2);
 
 -- Subcategories
 insert into public.subcategories (key, label, category_id, sort_order)
 values
 ('iphone', 'iPhone', 1, 1),
-('macbook', 'MacBook', 2, 1);
+(djhj nujn 'macbook', 'MacBook', 2, 1);pp;/u 
+\
 
 -- Devices
 insert into public.devices (key, label, brand, model, category_id, subcategory_id, device_image, icon)
@@ -118,11 +112,11 @@ values
 
 
 -- iPhone 15 Pro Variants
-insert into public.device_variants (device_id, key, label, ram, storage, color, sku, gtin)
+insert into public.device_variants (device_id, label, is_active)
 values
-(1, 'iphone-15-pro-128gb', 'iPhone 15 Pro - 128GB', '8GB', '128GB', 'Blue Titanium', 'APL-15P-128', '0194253443879'),
-(1, 'iphone-15-pro-256gb', 'iPhone 15 Pro - 256GB', '8GB', '256GB', 'Blue Titanium', 'APL-15P-256', '0194253443886'),
-(1, 'iphone-15-pro-512gb', 'iPhone 15 Pro - 512GB', '8GB', '512GB', 'Natural Titanium', 'APL-15P-512', '0194253443893');
+(1, '128GB', true),
+(1, '256GB', true),
+(1, '512GB', true);
 
 -- MacBook Pro 14 Variants
 insert into public.device_variants (device_id, key, label, ram, storage, color, sku, gtin)

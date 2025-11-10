@@ -198,7 +198,10 @@ export interface Database {
           label: string;
           icon: string | null;
           parent_id: number | null;
-          sort_order: number | null;
+          shipping_cost: number | null;
+          paymore_margin: number | null;
+          merchant_margin: number | null;
+          total_margin: number | null;
           is_active: boolean | null;
           created_at: string | null;
           updated_at: string | null;
@@ -316,14 +319,8 @@ export interface Database {
         Row: {
           id: number
           device_id: number
-          key: string // e.g. "iPhone 14 Pro - 256GB"
-          label: string
-          ram: string
+          price: number
           storage: string
-          color: string
-          sku: string
-          gtin: string
-          mpn: string
           is_active: boolean
           created_at: string
           updated_at: string
@@ -352,6 +349,8 @@ export interface Database {
         Row: {
           id: number
           question_id: number
+          weight: number
+          weight_type: string
           value: string
           is_active: boolean
         }
