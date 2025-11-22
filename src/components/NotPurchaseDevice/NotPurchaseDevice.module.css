@@ -1,7 +1,6 @@
 .wrapperNotPurchaseDevice {
   max-width: 405px;
-  padding: 16px;
-  padding-bottom: 130px;
+  padding: 30px 16px 130px 16px;
   margin: 0px auto;
 }
 
@@ -22,7 +21,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: 28px;
-  margin-bottom: 19px;
+  margin-bottom: 39px;
 }
 
 .searchResults {
@@ -65,6 +64,8 @@
   align-items: center;
   justify-content: center;
   gap: 19px;
+
+  margin-bottom: 30px;
 }
 
 .mapContainer {
@@ -77,6 +78,119 @@
   font-size: 14px;
   color: #666;
   font-family: Inter;
+}
+
+.photoListsWrapper {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+
+  padding: 0;
+  margin: 0;
+  margin-bottom: 30px;
+  list-style: none;
+}
+
+.photoItemWrapper {
+  background-image: url('/public/img/upload-img.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  position: relative;
+}
+
+@media screen and (min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi), screen and (min-resolution: 2dppx) {
+  .photoItemWrapper {
+    background-image: url('/public/img/upload-img2x.png');
+  }
+}
+
+.photoInput {
+  display: none;
+}
+
+.photoLabel {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.uploadIcon {
+  font-size: 32px;
+  color: #6b7280;
+  font-weight: 300;
+}
+
+.photoPreview {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.removePhotoBtn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0;
+  z-index: 10;
+  background: transparent;
+  border: none;
+
+  cursor: pointer;
+}
+
+.inputTextListsWrapper {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.wrapperOfferClaimPage {
+  margin-top: 40px;
+}
+
+.offerClaimPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 405px;
+
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 30px 15px;
+}
+
+.offerClaimPageTitle {
+  color: #000;
+  font-family: Inter;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  margin-bottom: 15px;
+}
+
+.congratulationsText {
+  width: 269px;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: 768px) {

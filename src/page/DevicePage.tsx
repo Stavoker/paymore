@@ -119,7 +119,7 @@ const DevicePage: React.FC = () => {
           )}
         </StepContainer>
       )}
-      {!loadingCategories && !questionsError && !step && <NotPurchaseDevice categories={categories} />}
+      {!loadingCategories && !questionsError && !step && <NotPurchaseDevice />}
     </>
   );
 };

@@ -1,0 +1,58 @@
+.wrapperInputText {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.inputTextLabel {
+  display: flex;
+  flex-direction: column;
+
+  color: #000;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.inputText {
+  border-radius: 8px;
+  border: 1px solid #d1d8d8;
+  padding: 14px;
+  max-width: 405px;
+  margin-top: 15px;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.inputText:focus {
+  outline: none;
+  border-color: #45b549;
+}
+
+.inputText::placeholder {
+  color: #6b7280;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.inputError {
+  border-color: #ef4444 !important;
+}
+
+.inputFocused {
+  border-color: #45b549;
+}
+
+.errorText {
+  color: #ef4444;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 4px;
+  display: block;
+}
