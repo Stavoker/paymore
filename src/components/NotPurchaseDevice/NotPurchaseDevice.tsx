@@ -32,7 +32,7 @@ const NotPurchaseDevice = () => {
   }, [makeShot]);
 
   useEffect(() => {
-    if (currentStep === 3) {
+    if (currentStep === 2) {
       launchConfetti();
     }
   }, [launchConfetti, currentStep]);
@@ -144,7 +144,6 @@ const NotPurchaseDevice = () => {
           </div>
 
           <Button
-            style={{ maxWidth: '264px' }}
             onClick={() => {
               setCurrentStep(2);
             }}
