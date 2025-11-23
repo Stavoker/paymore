@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import { TextInputProps } from './types';
 import css from './InputText.module.css';
 
-const InputText = ({ value, onChange, placeholder = 'Search for a model', className, label, type = 'text', error }: TextInputProps) => {
+const InputText = ({
+  value,
+  onChange,
+  placeholder = 'Search for a model',
+  className,
+  label,
+  type = 'text',
+  error,
+  required,
+}: TextInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [validationError, setValidationError] = useState<string>('');
 
@@ -18,7 +27,10 @@ const InputText = ({ value, onChange, placeholder = 'Search for a model', classN
 
   const handleBlur = () => {
     setIsFocused(false);
-
+    if (required && !value) {
+      setValidationError('This field is required');
+      return;
+    }
     if (type === 'email' && value && !validateEmail(value)) {
       setValidationError('Please enter a valid email address');
     } else {
@@ -27,10 +39,8 @@ const InputText = ({ value, onChange, placeholder = 'Search for a model', classN
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
+    const newValue = e.target.value.trimStart();
     onChange(newValue);
-
-    // Clear validation error when user starts typing
     if (validationError) {
       setValidationError('');
     }
@@ -51,6 +61,7 @@ const InputText = ({ value, onChange, placeholder = 'Search for a model', classN
           onFocus={handleFocus}
           onBlur={handleBlur}
           placeholder={placeholder}
+          required={required}
         />
       </label>
       {displayError && <span className={css.errorText}>{displayError}</span>}

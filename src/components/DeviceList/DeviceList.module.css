@@ -129,6 +129,8 @@
 }
 
 .item {
+  display: flex;
+  align-items: center;
   border-radius: 8px;
   border: 1px solid #d1d8d8;
   background: #fff;
@@ -188,6 +190,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
+  width: 100%;
 }
 
 .deviceImage {
@@ -205,6 +208,8 @@
 }
 
 .nextIcon {
+  min-width: 9px;
+  min-height: 16px;
   fill: none;
   stroke: #000;
   margin-left: auto;

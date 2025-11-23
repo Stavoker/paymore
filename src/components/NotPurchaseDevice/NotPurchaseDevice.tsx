@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router';
 import confetti from 'canvas-confetti';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import Button from '../Button';
-import Checkbox from '../Inputs/Checkbox/Checkbox';
 import ButtonRadio from '../ButtonRadio';
-import css from './NotPurchaseDevice.module.css';
+import Checkbox from '../Inputs/Checkbox/Checkbox';
 import InputText from '../Inputs/InputText';
+import css from './NotPurchaseDevice.module.css';
 
 const NotPurchaseDevice = () => {
   const [deviceModel, setDeviceModel] = useState<string>('');
@@ -72,6 +72,19 @@ const NotPurchaseDevice = () => {
     setPhotos(newPhotos);
   };
 
+  // Valid email for disabled button
+  const isEmailValid = (email: string) => {
+    const emailRegex =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return emailRegex.test(email);
+  };
+
+  const descriptionText = {
+    Custom: "Get a personalized offer for any device, even if it's not listed!",
+    Trade: 'Bring your device in and get a same-day cash or store credit offer!',
+    Consign: 'We handle the listing and sale, sit back and get paid when it sells!',
+  };
+
   return (
     <div className={css.wrapperNotPurchaseDevice}>
       {currentStep < 2 && (
@@ -110,6 +123,7 @@ const NotPurchaseDevice = () => {
           <ul className={css.inputTextListsWrapper}>
             <li className={css.inputTextItem}>
               <InputText
+                required
                 value={deviceModel}
                 onChange={setDeviceModel}
                 placeholder='Example: Samsung Galaxy S23 Ultra'
@@ -117,19 +131,36 @@ const NotPurchaseDevice = () => {
               />
             </li>
             <li className={css.inputTextItem}>
-              <InputText value={fullName} onChange={setFullName} placeholder='First and Last Name' label='Write your first and last name' />
+              <InputText
+                required
+                value={fullName}
+                onChange={setFullName}
+                placeholder='First and Last Name'
+                label='Write your first and last name'
+              />
             </li>
             <li className={css.inputTextItem}>
-              <InputText type='email' value={email} onChange={setEmail} placeholder='your@email.com' label='Enter your email address' />
+              <InputText
+                required
+                type='email'
+                value={email}
+                onChange={setEmail}
+                placeholder='your@email.com'
+                label='Enter your email address'
+              />
             </li>
           </ul>
 
           <p className={css.text}>PayMore does not purchase this item, but we can offer you alternative options:</p>
 
           <div className={css.wrapperBntRadio}>
-            <ButtonRadio options={['Recycle', 'Donate', 'Consign']} value={selectedCondition} onChange={handleConditionChange} />
+            <ButtonRadio
+              options={Object.keys(descriptionText) as (string | number)[]}
+              value={selectedCondition}
+              onChange={handleConditionChange}
+              descriptionText={descriptionText}
+            />
           </div>
-
           <div className='wrapper-verification'>
             <Checkbox
               label={
@@ -144,11 +175,9 @@ const NotPurchaseDevice = () => {
           </div>
 
           <Button
-            onClick={() => {
-              setCurrentStep(2);
-            }}
+            onClick={() => setCurrentStep(2)}
             colorButton={'green'}
-            disabled={!verificationChecked || !selectedCondition}
+            disabled={!verificationChecked || !selectedCondition || !deviceModel || !fullName || !email || !isEmailValid(email)}
           >
             Send Request
           </Button>

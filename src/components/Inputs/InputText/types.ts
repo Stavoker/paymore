@@ -6,4 +6,5 @@ export type TextInputProps = {
   label?: string;
   type?: string;
   error?: string;
+  required?: boolean;
 };

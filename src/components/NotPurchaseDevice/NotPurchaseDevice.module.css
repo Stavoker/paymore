@@ -60,9 +60,8 @@
 }
 
 .wrapperBntRadio {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 19px;
 
   margin-bottom: 30px;

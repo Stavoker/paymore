@@ -1,8 +1,8 @@
 import React from 'react';
-import { RadioButtonProps } from './types';
 import css from './ButtonRadio.module.css';
+import { RadioButtonProps } from './types';
 
-const ButtonRadio: React.FC<RadioButtonProps> = ({ options, value, onChange }) => {
+const ButtonRadio: React.FC<RadioButtonProps> = ({ options, value, onChange, descriptionText }) => {
   return (
     <>
       {options.map((option, index) => {
@@ -14,6 +14,7 @@ const ButtonRadio: React.FC<RadioButtonProps> = ({ options, value, onChange }) =
             onClick={() => onChange(option)}
           >
             {option}
+            {descriptionText && <p className={css.descriptionText}>{descriptionText[option]}</p>}
           </button>
         );
       })}
