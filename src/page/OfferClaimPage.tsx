@@ -100,6 +100,10 @@ const OfferClaimPage: React.FC = () => {
           <input className='offer-claim-page-input' type='tel' placeholder='(123) 456-7890' value={phone}
             onChange={(e) => setPhone(e.target.value)} />
         </label>
+         <label className='offer-claim-page-label'>
+          Code
+          <input className='offer-claim-page-input' type='text' placeholder='Enter code' />
+        </label>
 
         {/* <label className='offer-claim-page-label'>
           4 -digit commission / rewards code (optional)

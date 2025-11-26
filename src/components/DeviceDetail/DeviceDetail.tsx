@@ -45,6 +45,7 @@ const DeviceDetail: React.FC<DeviceDetailProps> = ({
   const navigate = useNavigate();
   const { brand } = useParams();
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [phoneUnlocked, setPhoneUnlocked] = useState<boolean>(true);
   // Unified state for all question answers
   const [answers, setAnswers] = useState<QuestionAnswersState>({
     storage: currentSelectedDevice?.storage || '',
@@ -146,6 +147,12 @@ const DeviceDetail: React.FC<DeviceDetailProps> = ({
           if (!currentValue) {
             handleQuestionChange(questionId, answerId, answerValue);
           }
+        }
+
+        if ("phone_&_carrier_unlocked_" === normalizedQuestionName && answerValue === "No") {
+          setPhoneUnlocked(false);
+        }else{
+          setPhoneUnlocked(true);
         }
       } else {
         const question = categorialQuestions.find(q => q.id === questionId);
@@ -451,8 +458,13 @@ const DeviceDetail: React.FC<DeviceDetailProps> = ({
           </>
         )}
       </>
-
+      { !phoneUnlocked && (
+          <div style={{ color: 'red', marginBottom: '10px' }}>
+            Note: Your phone must be unlocked to proceed.
+          </div>
+        )}
       <div className='wrapper-btn-step' style={{ marginTop: '30px' }}>
+
         <Button
           onClick={() => {
             if (step === 2) {
@@ -489,8 +501,8 @@ const DeviceDetail: React.FC<DeviceDetailProps> = ({
                                            } 
                                   });
           }}
-          disabled={!isFormValid()}
-          active={isFormValid()}
+          disabled={!isFormValid() || !phoneUnlocked}
+          active={isFormValid() && phoneUnlocked}
         >
           Continue
           <svg className={'arrow-icon next'} width={17} height={16}>
