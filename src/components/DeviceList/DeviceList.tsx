@@ -36,10 +36,10 @@ function DeviceList<T extends BaseListItem = BaseListItem>({
       <ul className={css.list}>
         {currentItems.length === 0 && visibleText && (
           <li className={css.itemTextRed}>
-            <p className={css.noDevices}>We apologize, but PayMore does not purchase this item</p>
+            <p className={css.noDevices}>Looks like this device isn't in our system just yet!</p>
             {onNoDevicesClick && (
               <button onClick={onNoDevicesClick} type='button' className={css.noDevicesBtn}>
-                You can view the full list of items we do accept in this category below
+                Click here to explore more options we can help you with.
               </button>
             )}
           </li>
