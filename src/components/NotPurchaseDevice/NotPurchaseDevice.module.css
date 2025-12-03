@@ -175,7 +175,7 @@
 }
 
 .offerClaimPageTitle {
-  color: #000;
+  color: #fff;
   font-family: Inter;
   font-size: 26px;
   font-style: normal;
@@ -186,7 +186,7 @@
 
 .congratulationsText {
   width: 269px;
-  color: #000;
+  color: #fff;
   text-align: center;
   font-family: Inter;
   font-size: 14px;

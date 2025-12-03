@@ -6,12 +6,15 @@ import ButtonRadio from '../ButtonRadio';
 import Checkbox from '../Inputs/Checkbox/Checkbox';
 import InputText from '../Inputs/InputText';
 import css from './NotPurchaseDevice.module.css';
+import { createNoVariantRequest } from '../../services/noVariantService';
+import { supabase } from '../../lib/supabase';
 
 const NotPurchaseDevice = () => {
   const [deviceModel, setDeviceModel] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [photos, setPhotos] = useState<(string | null)[]>([null, null, null]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedCondition, setSelectedCondition] = useState<string | number>('');
   const [verificationChecked, setVerificationChecked] = useState(false);
@@ -41,7 +44,7 @@ const NotPurchaseDevice = () => {
     setSelectedCondition(value);
   };
 
-  const handlePhotoChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhotoChange = async (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       // Check file size (max 5MB)
@@ -55,7 +58,7 @@ const NotPurchaseDevice = () => {
         alert('Please upload an image file');
         return;
       }
-
+      
       const reader = new FileReader();
       reader.onloadend = () => {
         const newPhotos = [...photos];
@@ -63,6 +66,28 @@ const NotPurchaseDevice = () => {
         setPhotos(newPhotos);
       };
       reader.readAsDataURL(file);
+    
+      const fileName = `${Date.now()}-${file.name}`;
+
+      const { error } = await supabase.storage
+        .from("device-images")
+        .upload(fileName, file);
+
+      if (error) {
+        console.error(error);
+        alert("Upload failed");
+        return;
+      }
+
+      const { data } = supabase.storage
+        .from("device-images")
+        .getPublicUrl(fileName);
+
+      setImageUrls((prev) => {
+        const copy = [...prev];
+        copy[2] = data.publicUrl;
+        return copy;
+      }); // SAVE THIS TO DATABASE
     }
   };
 
@@ -84,6 +109,18 @@ const NotPurchaseDevice = () => {
     Trade: 'Bring your device in and get a same-day cash or store credit offer!',
     Consign: 'We handle the listing and sale, sit back and get paid when it sells!',
   };
+
+   async function handleOnSubmit() {
+      await createNoVariantRequest({
+        device_name: deviceModel,
+        user_email: email,
+        user_name: fullName,
+        consignment_type: selectedCondition as string,
+        image_1: imageUrls[0],
+        image_2: imageUrls[1],
+        image_3: imageUrls[2],
+      });
+    }
 
   return (
     <div className={css.wrapperNotPurchaseDevice}>
@@ -175,7 +212,10 @@ const NotPurchaseDevice = () => {
           </div>
 
           <Button
-            onClick={() => setCurrentStep(2)}
+            onClick={async () => {
+                  await handleOnSubmit();
+                  setCurrentStep(2);
+                }}
             colorButton={'green'}
             disabled={!verificationChecked || !selectedCondition || !deviceModel || !fullName || !email || !isEmailValid(email)}
           >
