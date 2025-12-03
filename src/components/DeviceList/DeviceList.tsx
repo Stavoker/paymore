@@ -28,9 +28,6 @@ function DeviceList<T extends BaseListItem = BaseListItem>({
     }
   };
 
-  useEffect(() => {
-    setCurrentPage(0);
-  }, [items.length]);
   return (
     <div>
       <ul className={css.list}>

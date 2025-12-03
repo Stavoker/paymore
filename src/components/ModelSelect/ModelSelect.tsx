@@ -2,7 +2,7 @@ import { DeviceItem } from '../DeviceList/types';
 import DeviceList from '../DeviceList';
 import InputSearch from '../Inputs/InputSearch';
 import { ModelSelectProps } from './types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from './ModelSelect.module.css';
 import { useNavigate } from 'react-router';
 
@@ -37,6 +37,12 @@ const ModelSelect: React.FC<ModelSelectProps> = ({
   const handleNoDevicesClick = () => {
     setStep?.(0);
   };
+
+  useEffect(() => { 
+    if (items.length === 0 && category === "whats_it_worth") {
+       setStep?.(0);
+    }
+  }, [items.length]); 
 
   return (
     <div className={css.wrapperModelSelect}>

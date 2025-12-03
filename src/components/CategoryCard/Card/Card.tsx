@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({ category }) => {
     });
   };
 
-  const pathImg = `/img/category/${category.label.replace(/[\s/]+/g, '_')}`;
+  const pathImg = `/img/category/${category.icon || category.label.replace(/[\s/]+/g, '_')}`;
 
   return (
     <div className={css.wrapperCard} onClick={handleClick}>
