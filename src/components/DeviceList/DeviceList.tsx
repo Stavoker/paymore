@@ -39,7 +39,7 @@ function DeviceList<T extends BaseListItem = BaseListItem>({
             <p className={css.noDevices}>Looks like this device isn't in our system just yet!</p>
             {onNoDevicesClick && (
               <button onClick={onNoDevicesClick} type='button' className={css.noDevicesBtn}>
-                Click here to explore more options we can help you with.
+                Click here to find out what it's worth.
               </button>
             )}
           </li>

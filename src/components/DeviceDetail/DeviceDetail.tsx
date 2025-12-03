@@ -150,7 +150,7 @@ const DeviceDetail: React.FC<DeviceDetailProps> = ({
           }
         }
 
-        if ("phone_&_carrier_unlocked_" === normalizedQuestionName && answerValue === "No") {
+        if ("phone_&_carrier_unlocked" === normalizedQuestionName && answerValue === "No") {
           setPhoneUnlocked(false);
         }else{
           setPhoneUnlocked(true);
