@@ -79,15 +79,11 @@ const InputSearch = ({ value, onChange, placeholder = 'Search for a model', clas
           onClick={handleVoiceInput}
           title={isListening ? 'Остановить запись' : 'Начать голосовой ввод'}
         >
-          <svg width={22} height={22}>
-            <use href='/img/sprite-icon.svg#mic' />
-          </svg>
+          <img width={22} height={22} src='/img/microphone-2.png' alt='Voice input' />
         </button>
         {voice && (
           <button className={css.btnIcon} type='button'>
-            <svg width={24} height={24}>
-              <use href='/img/sprite-icon.svg#voice' />
-            </svg>
+            <img width={24} height={24} src='/img/barcode.png' alt='Barcode' />
           </button>
         )}
       </div>

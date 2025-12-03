@@ -44,7 +44,7 @@ code {
 }
 
 .step-text {
-  color: #000;
+  color: #fff;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -68,7 +68,7 @@ code {
 }
 
 .step-current-value.active {
-  background: #45b549;
+  background: #10B982;
 }
 
 .wrapper-btn-step {
@@ -96,7 +96,7 @@ code {
 
 .offer-claim-page {
   border-radius: 8px;
-  border: 1px solid #ddd;
+  background: #0E162B;
   max-width: 405px;
   height: 100%;
   padding: 30px 15px;
@@ -104,7 +104,7 @@ code {
 }
 
 .offer-claim-page-title {
-  color: #000;
+  color: #fff;
   font-family: Inter;
   text-align: center;
   font-size: 26px;
@@ -115,7 +115,7 @@ code {
 }
 
 .offer-claim-page-subtitle {
-  color: #000;
+  color: #fff;
   font-family: Inter;
   text-align: center;
   font-size: 14px;
@@ -127,7 +127,7 @@ code {
 
 .offer-claim-page-amount {
   text-align: center;
-  color: #45b549;
+  color: #10B982;
 
   font-family: Inter;
   font-size: 36px;
@@ -152,7 +152,7 @@ code {
 }
 
 .offer-claim-page-expiry {
-  color: #0a6b31;
+  color: #18B884;
   font-family: Inter;
   text-align: center;
   font-size: 18px;
@@ -160,8 +160,7 @@ code {
   font-weight: 600;
   line-height: 20px;
   border-radius: 14px;
-  border: 1px solid #45b549;
-  background: #e3ffe4;
+  background: #1E293B;
   margin-bottom: 26px;
   padding: 15px;
 }
@@ -170,7 +169,7 @@ code {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  color: #000;
+  color: #fff;
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -180,8 +179,8 @@ code {
 
 .offer-claim-page-input {
   border-radius: 8px;
-  border: 1px solid #d1d8d8;
-  background: #fff;
+  border: 1px solid #383F51;
+  background: #0A101E;
   padding: 14px;
   margin-bottom: 20px;
 }
@@ -205,6 +204,10 @@ code {
   align-items: center;
   gap: 10px;
   margin-bottom: 29px;
+}
+
+.wrapper-verification p {
+  color: #fff;
 }
 
 .view-rewards-btn {

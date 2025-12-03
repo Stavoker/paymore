@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000;
+  color: #fff;
   text-align: center;
   font-family: Inter;
   font-size: 16px;
@@ -15,9 +15,8 @@
   margin: 0 auto;
 
   border-radius: 14px;
-  border: none;
-  opacity: 0.6;
-  background: #fff;
+  border: 1px solid #d1d8d8;
+  background: #030617;
   box-shadow:
     -5px 41px 12px 0 rgba(0, 0, 0, 0),
     -3px 26px 11px 0 rgba(0, 0, 0, 0.01),
@@ -36,7 +35,8 @@
 
 .button.active {
   border-radius: 14px;
-  background: #45b549;
+  background: #10B982;
+  border: none;
   opacity: 1;
   box-shadow:
     11px 41px 12px 0 rgba(0, 0, 0, 0),
@@ -44,28 +44,15 @@
     4px 15px 9px 0 rgba(0, 0, 0, 0.05),
     2px 7px 7px 0 rgba(0, 0, 0, 0.09),
     0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  color: #fff;
+  color: #000;
+}
+
+.button svg {
+  fill: #fff;
 }
 
 .button.active svg {
-  fill: #fff;
-}
-
-.button:hover {
-  border-radius: 14px;
-  background: #45b549;
-  opacity: 1;
-  box-shadow:
-    11px 41px 12px 0 rgba(0, 0, 0, 0),
-    7px 26px 11px 0 rgba(0, 0, 0, 0.01),
-    4px 15px 9px 0 rgba(0, 0, 0, 0.05),
-    2px 7px 7px 0 rgba(0, 0, 0, 0.09),
-    0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  color: #fff;
-}
-
-.button:hover svg {
-  fill: #fff;
+  fill: #000;
 }
 
 .button:disabled {
@@ -74,8 +61,10 @@
 }
 
 .button.green {
-  background: #45b549;
-  color: #fff;
+  background: #10B982;
+  border: none;
+  color: #000;
+  font-weight: 600;
   width: 100%;
   opacity: 1;
 }

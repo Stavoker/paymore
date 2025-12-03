@@ -1,10 +1,11 @@
+import { CategorialQuestions, getAnswerByValue } from '../../services/categoryService';
 import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { CategorialQuestions, getAnswerByValue } from '../../services/categoryService';
-import { DeviceVariant } from '../../types/category';
+
 import Button from '../Button';
 import ButtonRadio from '../ButtonRadio';
 import Checkbox from '../Inputs/Checkbox';
+import { DeviceVariant } from '../../types/category';
 import css from './DeviceDetail.module.css';
 
 interface CategorialQuestionWithAnswers extends CategorialQuestions {
@@ -339,7 +340,7 @@ const DeviceDetail: React.FC<DeviceDetailProps> = ({
                           max='100'
                           value={Number(answers[`question_${question.id}`]) || 100}
                           style={{
-                            background: `linear-gradient(to right, #45B549 0%, #45B549 ${Number(answers[`question_${question.id}`]) || 100}%, #E0E0E0 ${Number(answers[`question_${question.id}`]) || 74}%, #E0E0E0 100%)`,
+                            background: `linear-gradient(to right, #10B982 0%, #10B982 ${Number(answers[`question_${question.id}`]) || 100}%, #E0E0E0 ${Number(answers[`question_${question.id}`]) || 74}%, #E0E0E0 100%)`,
                           }}
                         />
                       </div>

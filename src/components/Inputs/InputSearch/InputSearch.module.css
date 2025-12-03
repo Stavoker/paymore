@@ -37,10 +37,12 @@
 
 .inputSearch {
   border-radius: 8px;
-  border: 1px solid #d1d8d8;
+  border: 1px solid #2E3547;
   padding: 14px 70px 14px 35px;
   width: 100%;
+  color: #fff;
   max-width: 405px;
+  background-color: #030617;
 }
 
 .inputSearch:focus {

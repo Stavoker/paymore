@@ -1,10 +1,10 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
-import { ModelSelectProps } from './types';
-import InputSearch from '../Inputs/InputSearch';
-import DeviceList from '../DeviceList';
 import { DeviceItem } from '../DeviceList/types';
+import DeviceList from '../DeviceList';
+import InputSearch from '../Inputs/InputSearch';
+import { ModelSelectProps } from './types';
+import React from 'react';
 import css from './ModelSelect.module.css';
+import { useNavigate } from 'react-router';
 
 const ModelSelect: React.FC<ModelSelectProps> = ({
   items,
@@ -43,15 +43,11 @@ const ModelSelect: React.FC<ModelSelectProps> = ({
       <InputSearch voice value={deviceSearchTerm} onChange={setDeviceSearchTerm} placeholder='Search for a model' />
 
       <p className={css.subtitle}>
-        <svg width={18} height={18}>
-          <use href='/img/sprite-icon.svg#mic' />
-        </svg>
-        Ai voice assistant. Helps you to enter devices faster{' '}
+        <img width={18} height={18} src='/img/microphone-2.png' alt='Voice input' />
+         Ai voice assistant. Helps you to enter devices faster{' '}
       </p>
       <p className={css.subtitle}>
-        <svg width={18} height={18}>
-          <use href='/img/sprite-icon.svg#voice' />
-        </svg>
+        <img width={24} height={24} src='/img/barcode.png' alt='Barcode' />
         Barcode reader. Upload image or scan barcode on your device{' '}
       </p>
 

@@ -35,7 +35,7 @@
 }
 
 .title {
-  color: #000;
+  color: #fff;
   font-family: Inter;
   font-size: 18px;
   font-style: normal;
@@ -45,7 +45,7 @@
 }
 
 .deviceLabel {
-  color: #000;
+  color: #fff;
   font-family: Inter;
   font-size: 18px;
   font-style: normal;
@@ -96,7 +96,7 @@
 }
 
 .currentText {
-  color: #000;
+  color: #fff;
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
@@ -128,7 +128,7 @@
   height: 26px;
   border-radius: 50%;
   background: #fff;
-  border: 2px solid #45b549;
+  border: 2px solid #10B982;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -138,7 +138,7 @@
   height: 26px;
   border-radius: 50%;
   background: #fff;
-  border: 2px solid #45b549;
+  border: 2px solid #10B982;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
